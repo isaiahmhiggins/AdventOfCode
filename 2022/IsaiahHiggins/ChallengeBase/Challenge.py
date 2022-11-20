@@ -17,18 +17,19 @@ class Challenge(abc.ABC):
             sys.exit(1)
         else:
             self.sample = os.path.join(inputData, "sample.txt")
-            self.challenge1 = os.path.join(inputData, "part1.txt")
-            self.challenge2 = os.path.join(inputData, "part2.txt")
+            self.real = os.path.join(inputData, "real.txt")
 
     def GetSample(self):
         return self.sample
 
-    def GetPart1(self):
-        return self.challenge1
+    def GetReal(self):
+        return self.real
 
-    def GetPart2(self):
-        return self.challenge2
 
     @abc.abstractmethod
-    def execute(cls, data):
+    def ExecuteP1(cls, data):
+        ...
+
+    @abc.abstractmethod
+    def ExecuteP2(cls, data):
         ...
