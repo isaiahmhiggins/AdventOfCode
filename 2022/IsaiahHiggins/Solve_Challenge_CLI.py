@@ -37,9 +37,9 @@ def Evaluate_script(args) -> int:
         data = script.GetReal()
 
     if args.part == 'part1':
-        script.ExecuteP1(data)
+        answer = script.ExecuteP1(data)
     elif args.part == 'part2':
-        script.ExecuteP2(data)
+        answer = script.ExecuteP2(data)
 
     return answer
 
