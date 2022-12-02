@@ -9,7 +9,7 @@ import sys
 import os
 import glob
 from ChallengeBase.Challenge import Challenge
-    
+
 
 def Evaluate_script(args) -> int:
     # check for correct folder
@@ -69,7 +69,7 @@ def New_Challenge(challenge_name: str):
     '\r\n'
     '    def ExecuteP1(self, data: Path):\r\n'
     '        answer = 0\r\n'
-    '        contant = []\r\n'
+    '        content = []\r\n'
     '        #TODO implement evaluation\r\n'
     '        with open(data, "r") as challenge_data:\r\n'
     '            print("part1 unevaluated")\r\n'
@@ -77,7 +77,7 @@ def New_Challenge(challenge_name: str):
     '\r\n'
     '    def ExecuteP2(self, data: Path):\r\n'
     '        answer = 0\r\n'
-    '        contant = []\r\n'
+    '        content = []\r\n'
     '        #TODO implement evaluation\r\n'
     '        with open(data, "r") as challenge_data:\r\n'
     '            print("part2 unevaluated")\r\n'
@@ -128,7 +128,7 @@ def main():
 
 
 
-    
+
 
 
 
