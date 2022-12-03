@@ -33,8 +33,6 @@ class Group:
     def DetermineBadge(self):
         return self.pack1 & self.pack2 & self.pack3
 
-
-
 class Day3(ChallengeBase.Challenge.Challenge):
 
     def __init__(self, inputData: Path):
