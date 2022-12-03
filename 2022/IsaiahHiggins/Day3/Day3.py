@@ -21,24 +21,17 @@ class Pack:
         self.compartment2 = contentString[mid:]
 
     def GetDuplicate(self):
-        dup = []
-        for part in self.compartment1:
-            if part in self.compartment2:
-                dup.append(part)
-        return set(dup)
+        return set(self.compartment1) & set(self.compartment2)
 
 class Group:
     def __init__(self, pack1, pack2, pack3):
-        self.pack1 = pack1
-        self.pack2 = pack2
-        self.pack3 = pack3
-        self.DetermineBadge()
+        self.pack1 = set(pack1)
+        self.pack2 = set(pack2)
+        self.pack3 = set(pack3)
+        self.badge = list(self.DetermineBadge())[0]
 
     def DetermineBadge(self):
-        for char in set(self.pack1):
-            if char in self.pack2 and char in self.pack3:
-                self.badge = char
-                return
+        return self.pack1 & self.pack2 & self.pack3
 
 
 
