@@ -56,6 +56,5 @@ class Day4(ChallengeBase.Challenge.Challenge):
                     answer += 1
                 elif elf2.start <= elf1.start <= elf2.end:
                     answer += 1
-                print()
 
         return answer
