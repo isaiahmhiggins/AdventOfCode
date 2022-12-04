@@ -72,7 +72,7 @@ def New_Challenge(challenge_name: str):
     '        content = []\r\n'
     '        #TODO implement evaluation\r\n'
     '        with open(data, "r") as challenge_data:\r\n'
-    '            content = [i.strip() for i in challenge_data.readlines()]'
+    '            content = [i.strip() for i in challenge_data.readlines()]\r\n'
     '            print("part1 unevaluated")\r\n'
     '        return answer\r\n'
     '\r\n'
@@ -81,7 +81,7 @@ def New_Challenge(challenge_name: str):
     '        content = []\r\n'
     '        #TODO implement evaluation\r\n'
     '        with open(data, "r") as challenge_data:\r\n'
-    '            content = [i.strip() for i in challenge_data.readlines()]'
+    '            content = [i.strip() for i in challenge_data.readlines()]\r\n'
     '            print("part2 unevaluated")\r\n'
     '        return answer\r\n')
 
