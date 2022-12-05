@@ -14,7 +14,6 @@ from ChallengeBase.Challenge import Challenge
 def Evaluate_script(args) -> int:
     # check for correct folder
     args.folder = Path(os.path.abspath(args.folder))
-    print(args.folder)
     if not args.folder.exists():
         sys.exit(1)
 

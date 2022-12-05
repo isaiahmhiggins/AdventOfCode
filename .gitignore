@@ -1,0 +1,7 @@
+# ignore python junk files
+*.pyc
+*__pycache__*
+
+# ignore visual studio extnsions
+*.DS_Store
+*.vscode*
