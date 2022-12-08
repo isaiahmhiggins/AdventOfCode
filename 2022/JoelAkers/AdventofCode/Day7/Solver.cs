@@ -13,24 +13,24 @@ public class Solver
     Console.Write($"Result is: {result}");
   }
 
-  private int DoPart2(string[] lines)
+  private static int DoPart2(string[] lines)
   {
     var commandLineParser = new CommandLineParser(lines);
     commandLineParser.ParseLines();
-    var neededSpace = 30000000;
+    const int neededSpace = 30000000;
     var currentlyUsedSpace = commandLineParser.MainDirectory.GetSize();
     var minimumMoreNeeded = currentlyUsedSpace - neededSpace;
     return GetDirectoryWithSmallestSizeMoreThan(minimumMoreNeeded, commandLineParser.MainDirectory);
   }
 
-  private int DoPart1(string[] lines)
+  private static int DoPart1(string[] lines)
   {
     var commandLineParser = new CommandLineParser(lines);
     commandLineParser.ParseLines();
     return GetSumOfSubsLessThan(100000, commandLineParser.MainDirectory);
   }
 
-  private int GetDirectoryWithSmallestSizeMoreThan(int minimum, Directory directory)
+  private static int GetDirectoryWithSmallestSizeMoreThan(int minimum, Directory directory)
   {
     var currentDirectorySize = directory.GetSize();
 
@@ -41,16 +41,16 @@ public class Solver
 
     subDirectoryMinimums.Add(currentDirectorySize);
 
-    var minimumsThatMeetRequirment = subDirectoryMinimums
-      .Where(size => size > minimum)
+    var minimumsThatMeetRequirement = subDirectoryMinimums
+      .Where(size => size >= minimum && size != -1)
       .ToList();
-    return minimumsThatMeetRequirment.Count > 0 
-      ? minimumsThatMeetRequirment.Min() 
-      : int.MaxValue;
+    return minimumsThatMeetRequirement.Count > 0 
+      ? minimumsThatMeetRequirement.Min() 
+      : -1;
 
   }
 
-  private int GetSumOfSubsLessThan(int maximum, Directory? directory)
+  private static int GetSumOfSubsLessThan(int maximum, Directory? directory)
   {
     if (directory.SubDirectories.Count == 0)
     {
