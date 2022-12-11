@@ -121,7 +121,7 @@ class Day11(ChallengeBase.Challenge.Challenge):
 
         print("lcm", self.lcm)
 
-        for turn in range(0, 100000):
+        for turn in range(0, 10000):
             #print(turn)
             for monkey in self.Monkeys:
                 monkey.lcm = self.lcm
