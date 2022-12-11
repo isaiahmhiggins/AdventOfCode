@@ -9,7 +9,7 @@ public class Directory
 
   public string Name { get; set; }
   public Directory? ParentDirectory { get; set; }
-  public List<Directory?> SubDirectories = new();
+  public List<Directory> SubDirectories = new();
   public List<Files> ContainedFiles = new();
   private int Size { get; set; } = -1;
   public void AddSubDirectory(string name)

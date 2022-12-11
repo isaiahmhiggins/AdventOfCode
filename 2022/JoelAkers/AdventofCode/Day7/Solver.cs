@@ -18,8 +18,10 @@ public class Solver
     var commandLineParser = new CommandLineParser(lines);
     commandLineParser.ParseLines();
     const int neededSpace = 30000000;
+    const int totalSpace = 70000000;
+    const int allowedUsedSpace = totalSpace - neededSpace;
     var currentlyUsedSpace = commandLineParser.MainDirectory.GetSize();
-    var minimumMoreNeeded = currentlyUsedSpace - neededSpace;
+    var minimumMoreNeeded = currentlyUsedSpace - allowedUsedSpace;
     return GetDirectoryWithSmallestSizeMoreThan(minimumMoreNeeded, commandLineParser.MainDirectory);
   }
 

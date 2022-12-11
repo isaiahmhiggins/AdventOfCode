@@ -4,22 +4,23 @@ public class CommandLineParser
 {
   public CommandLineParser(string[] fileLines)
   {
-    this._fileLines = fileLines;
+    _fileLines = fileLines;
     MainDirectory = new Directory("/");
     CurrentDirectory = MainDirectory;
   }
 
-  public Directory? MainDirectory { get; set; }
-  private Directory? CurrentDirectory { get; set; }
+  public Directory MainDirectory { get; set; }
+  private Directory CurrentDirectory { get; set; }
 
   private readonly string[] _fileLines;
-  private int _currentIndex = 0;
+  private int _currentIndex;
 
   public void ParseLines()
   {
     while (_currentIndex < _fileLines.Length)
     {
-      var splitLine = _fileLines[_currentIndex].Split();
+      var currentLine = _fileLines[_currentIndex];
+      var splitLine = currentLine.Split();
       if (splitLine[0] == "$")
       {
         _currentIndex++;
@@ -45,7 +46,8 @@ public class CommandLineParser
     var isEndOfList = false;
     while (_currentIndex < _fileLines.Length && !isEndOfList)
     {
-      var splitLine = _fileLines[_currentIndex].Split();
+      var currentLine = _fileLines[_currentIndex];
+      var splitLine = currentLine.Split();
       
       switch (splitLine[0])
       {
@@ -53,11 +55,11 @@ public class CommandLineParser
           isEndOfList = true;
           break;
         case "dir":
-          CurrentDirectory?.AddSubDirectory(splitLine[1]);
+          CurrentDirectory.AddSubDirectory(splitLine[1]);
           _currentIndex++;
           break;
         default:
-          CurrentDirectory?.AddFile(splitLine[1], splitLine[0]);
+          CurrentDirectory.AddFile(splitLine[1], splitLine[0]);
           _currentIndex++;
           break;
       }
@@ -65,11 +67,13 @@ public class CommandLineParser
     }
   }
 
-  private void HandleChangeDirectory(string name) =>
+  private void HandleChangeDirectory(string name)
+  {
     CurrentDirectory = name switch
     {
       "/" => MainDirectory,
-      ".." => CurrentDirectory?.ParentDirectory,
-      _ => CurrentDirectory?.SubDirectories.First(directory => directory?.Name == name)
+      ".." => CurrentDirectory.ParentDirectory!,
+      _ => CurrentDirectory.SubDirectories.First(directory => directory.Name == name)
     };
+  }
 }
