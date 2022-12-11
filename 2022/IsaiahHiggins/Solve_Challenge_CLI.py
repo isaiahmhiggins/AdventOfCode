@@ -9,6 +9,7 @@ import sys
 import os
 import glob
 from ChallengeBase.Challenge import Challenge
+import cProfile
 
 
 def Evaluate_script(args) -> int:
@@ -129,9 +130,5 @@ def main():
 
 
 
-
-
-
-
 if __name__ == "__main__":
-    main()
+    cProfile.run("main()")
