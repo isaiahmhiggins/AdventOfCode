@@ -2,6 +2,7 @@
 
 public class Solver
 {
+  private bool _isDebug = false;
   public void Solve(string filePath, int partNumber)
   {
     var fileLines = File.ReadAllLines(filePath).ToList();
@@ -14,14 +15,33 @@ public class Solver
     Console.Write($"Result is: {result}");
   }
 
-  private static long DoPart2(IReadOnlyList<string> lines)
+  private long DoPart2(IReadOnlyList<string> lines)
   {
-    return 0;
+    var sandyCave = new SandyCave(lines, 500, 0, false);
+    var totalDropped = 0;
+    while (sandyCave.DropSandUnit())
+    {
+      totalDropped++;
+      if (!_isDebug) 
+        continue;
+      Console.Clear();
+      sandyCave.PrintWall();
+      Thread.Sleep(100);
+    }
+    sandyCave.PrintWall();
+    return totalDropped;
   }
 
   private static long DoPart1(IReadOnlyList<string> lines)
   {
-    return 0;
+    var sandyCave = new SandyCave(lines, 500, 0);
+    var totalDropped = 0;
+    while (sandyCave.DropSandUnit())
+    {
+      totalDropped++;
+    }
+    sandyCave.PrintWall();
+    return totalDropped;
   }
 
   
