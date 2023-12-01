@@ -5,3 +5,5 @@
 # ignore visual studio extnsions
 *.DS_Store
 *.vscode*
+*.txt
+*.code-workspace
