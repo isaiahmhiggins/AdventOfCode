@@ -13,20 +13,19 @@ real_2 = f".\\AdventOfCode\\2023\\Joel Akers\\day_{day_number}\\real_2.txt"
 IS_DEBUG = True
 
 class Node:
-    key: int
+    key: str
     right: str
     left: str
     is_start: bool
     is_end: bool
-    def __init__(self, line: str, key: int) -> None:
+    def __init__(self, line: str) -> None:
         equal_split = line.split('=')
         left_right_split = equal_split[1].strip(' ()\n').split(',')
         self.left = left_right_split[0].strip()
         self.right = left_right_split[1].strip()
-        string_key =  equal_split[0].strip()
-        self.is_start = string_key[2] == 'A'
-        self.is_end = string_key[2] == 'Z'
-        self.key = key
+        self.key = equal_split[0].strip()
+        self.is_start = self.key[2] == 'A'
+        self.is_end = self.key[2] == 'Z'
 
 
 class NodeMap:
@@ -51,10 +50,7 @@ def solution_part_1():
     with open(real_1, 'r') as open_file:
         lines = [line.strip() for line in open_file.readlines()]
         right_left_sequence = lines[0].strip()
-        node_list = []
-        for i in range(2, len(lines)):
-            if len(lines[i]) > 0:
-                node_list.append(Node(lines[i], i))
+        node_list = [Node(line) for line in lines[1:] if len(line) > 0]
         
         node_dict = {node.key[0]: node for node in node_list}
 
@@ -84,12 +80,10 @@ def solution_part_2():
         lines = [line.strip() for line in open_file.readlines()]
         
         right_left_sequence = lines[0].strip()
-        node_list = []
-        for i in range(2, len(lines)):
-            if len(lines[i]) > 0:
-                node_list.append(Node(lines[i], i))
+        node_list = [Node(line) for line in lines[1:] if len(line) > 0]
         node_map = NodeMap(node_list)
         starting_keys = [node.key for node in node_list if node.key[2] == 'A']
+
         current_steps = copy.copy(starting_keys)
         sequence_index = 0
         steps_count = 0
@@ -99,13 +93,26 @@ def solution_part_2():
                 sequence_index = 0
             next_steps = []
             current_turn = right_left_sequence[sequence_index]
+            reached_a_possible_end = False
             for step in current_steps:
                 if current_turn == 'R':
-                    next_steps.append(node_map.get_right(step))
+                    right_key = node_map.get_right(step)
+                    if right_key[2] == 'Z':
+                        reached_a_possible_end = True
+                    next_steps.append(right_key)
                 elif current_turn == 'L':
-                    next_steps.append(node_map.get_left(step))
+                    left_key = node_map.get_left(step)
+                    if left_key[2] == 'Z':
+                        reached_a_possible_end = True
+                    next_steps.append(left_key)
                 else:
                     print('Somethings going wrong with the sequence.')
+            if reached_a_possible_end:
+                print("-------------")
+                print("step " + str(steps_count))
+                for i in range(len(next_steps)):
+                    print(f"S: {starting_keys[i]}, Z: {next_steps[i]}")
+                print("--------------")
             current_steps = next_steps
             sequence_index += 1
             if steps_count % 10000000 == 0:
@@ -113,4 +120,29 @@ def solution_part_2():
         print("Total Steps: " + str(steps_count))
 
 
-solution_part_2()
+#solution_part_2()
+
+import math
+
+def find_gcd(x, y):
+    while y:
+        x, y = y, x % y
+    return x
+
+def find_lcd(numbers):
+    if not numbers:
+        return None
+
+    # Initialize the result with the first number in the list
+    result = numbers[0]
+
+    # Iterate through the list of numbers and find the LCD
+    for num in numbers[1:]:
+        # Use the GCD to find the LCD
+        result = (result * num) // find_gcd(result, num)
+
+    return result
+
+paths = [19631, 13771, 21389, 17287, 23147, 20803]
+result = find_lcd(paths)
+print('result: ' + str(result))
